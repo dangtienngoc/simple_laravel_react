@@ -4,7 +4,7 @@ var AddShipping = React.createClass({
 
 	render: function() {
 		return (
-			<div>Add<div>
+			<div>Add</div>
 		);
 	}
 

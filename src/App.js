@@ -2,32 +2,44 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {connect} from 'react-redux';
-import {getAllShippings} from './actions';
+import { connect } from 'react-redux';
+import { getAllShippings } from './actions';
+
+import AddShipping from './containers/AddShipping';
+import ListShipping from './containers/ListShipping';
+
+import {
+    BrowserRouter as Router,
+    Route,
+    Link
+} from 'react-router-dom';
 
 class App extends Component {
 
-  componentDidMount() {
-    this.props.getAllShippings();
-  }
+    componentDidMount() {
+        this.props.getAllShippings();
+    }
 
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <Router>
+                <div className="App">
+
+                    <Route exact path="/" render={props => {
+                        const {hash} = props.location;
+                        return hash.includes('addbox') ? <AddShipping/> : <ListShipping/>;
+                    }
+                    }/>
+
+                </div>
+            </Router>
+
+        );
+    }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  getAllShippings: () => dispatch(getAllShippings())
+    getAllShippings: () => dispatch(getAllShippings())
 });
 
 export default connect(null, mapDispatchToProps)(App);
