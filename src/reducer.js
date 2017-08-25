@@ -4,9 +4,9 @@ const initState = {
     pending: false,
     shipping_list: [],
     shipping: {
-        errors: {}
-    },
-    message: ''
+        errors: {},
+        id: 0
+    }
 }
 
 const reducer = (state = initState, action) => {

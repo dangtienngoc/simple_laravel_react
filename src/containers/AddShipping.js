@@ -54,10 +54,15 @@ class AddShipping extends Component {
 
         const {color, weight, name} = this.state;
 
-        const {errors} = this.props;
+        const {errors, id, _name} = this.props;
 
         return (
             <div className="container">
+
+                <br/>
+
+                { id > 0 && <p className="alert alert-success">{`add ${_name} successfully.`}</p>}
+
                 <form onSubmit={this._onSubmit}>
 
                     <div className="form-group">
@@ -102,8 +107,10 @@ class AddShipping extends Component {
     }
 }
 
-const mapStateToProps = ({shipping: {errors}}) => ({
-    errors
+const mapStateToProps = ({shipping: {errors, id, name}}) => ({
+    errors,
+    id,
+    _name: name
 });
 
 const mapDisatchToProps = (dispatch) => ({
