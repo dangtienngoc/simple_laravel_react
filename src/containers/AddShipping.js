@@ -17,9 +17,9 @@ class AddShipping extends Component {
 
         this.state = {
             color: {
-                r: '241',
-                g: '112',
-                b: '19',
+                r: '255',
+                g: '255',
+                b: '255',
                 a: '1',
             },
             weight: 0,
@@ -78,7 +78,7 @@ class AddShipping extends Component {
 
                     <div className="form-group">
                         <label htmlFor="weight">Box Color</label>
-                        <ColorPicker value={color}/>
+                        <ColorPicker onChanged={this._onChange} color={color}/>
                         {errors.color && errors.color.length > 0 &&
                         <small className="form-text text-danger">{errors.color.join(',')}</small>}
                     </div>

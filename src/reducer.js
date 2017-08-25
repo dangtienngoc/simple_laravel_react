@@ -27,7 +27,10 @@ const reducer = (state = initState, action) => {
         case RECEIVED_POST_SHIPPING:
             return {
                 ...state,
-                shipping: action.payload,
+                shipping: {
+                    ...state.shipping,
+                    ...action.payload
+                },
                 pending: false
             };
         default:
