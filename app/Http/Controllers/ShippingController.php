@@ -2,53 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Shipping;
-
+use Illuminate\Http\Request;
 use Validator;
 
-class ShippingController extends Controller {
-	public function index() {
-		$shipping = Shipping::all();
+class ShippingController extends Controller
+{
+    public function index()
+    {
+        $shipping = Shipping::all();
 
-		if ( ! $shipping ) {
-			throw new HttpException( 400, "Invalid data" );
-		}
+        if (!$shipping) {
+            throw new HttpException(400, "Invalid data");
+        }
 
-		return response()->json( $shipping, 200 );
-	}
+        return response()->json($shipping, 200);
+    }
 
+    /**
+     * @param Request $request
+     *  Save Shipping to database
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request)
+    {
 
-	/**
-	 * @param Request $request
-	 *  Save Shipping to database
-	 *
-	 * @return \Illuminate\Http\JsonResponse
-	 */
-	public function store( Request $request ) {
+        // validate data before saving
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:2|max:255',
+            'color' => 'required',
+            'country' => 'required',
+            'weight' => 'required',
+        ]);
 
-		// validate data before saving
-		$validator = Validator::make( $request->all(), [
-			'name'  => 'required|min:2|max:255',
-			'color' => 'required|min:2|max:255',
-			'cost'  => 'required',
-		] );
+        if ($validator->fails()) {
 
-		if ( $validator->fails() ) {
-			return response()->json( $validator->errors(), 400 );
-		}
+            $errors = array(
+                "errors" => $validator->errors(),
+            );
 
-		$shipping = new Shipping;
+            return response()->json($errors, 200);
+        }
 
-		$shipping->name = $request->name;
-		$shipping->color = $request->color;
-		$shipping->cost = $request->cost;
+        $shipping = new Shipping;
 
-		if ( $shipping->save() ) {
-			return $shipping;
-		}
+        $shipping->name = $request->name;
+        $shipping->color = $request->color;
+        $shipping->country = $request->country;
+        $shipping->weight = $request->weight;
 
-		throw new HttpException( 400, "Invalid data" );
-	}
+        if ($shipping->save()) {
+            return $shipping;
+        }
+
+        throw new HttpException(400, "Invalid data");
+    }
 }

@@ -37,6 +37,7 @@ export const submitData = (shipping) => dispatch => {
     dispatch(shippingPending());
 
     api.addShipping(shipping).then(response => {
+        console.log(response);
         dispatch(receivePostShipping(response.data));
     });
 }

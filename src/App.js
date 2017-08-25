@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-import { connect } from 'react-redux';
-import { getAllShippings } from './actions';
 
 import AddShipping from './containers/AddShipping';
 import ListShipping from './containers/ListShipping';
@@ -11,14 +7,9 @@ import ListShipping from './containers/ListShipping';
 import {
     BrowserRouter as Router,
     Route,
-    Link
 } from 'react-router-dom';
 
 class App extends Component {
-
-    componentDidMount() {
-        this.props.getAllShippings();
-    }
 
     render() {
         return (
@@ -38,8 +29,4 @@ class App extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    getAllShippings: () => dispatch(getAllShippings())
-});
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;
