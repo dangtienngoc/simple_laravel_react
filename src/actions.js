@@ -5,19 +5,19 @@ export const RECEIVED_SHIPPING      = 'RECEIVED_SHIPPING';
 export const SHIPPING_PENDING       = 'SHIPPING_PENDING';
 export const RECEIVED_POST_SHIPPING = 'RECEIVED_POST_SHIPPING';
 
-const receiveShippongs = shippings => ({
+export const receiveShippongs = shippings => ({
     type: RECEIVED_SHIPPING,
     payload: shippings
-})
+});
 
-const shippingPending = () => ({
+export const shippingPending = () => ({
     type: SHIPPING_PENDING
 });
 
-const receivePostShipping = data => ({
+export const receivePostShipping = data => ({
     type: RECEIVED_POST_SHIPPING,
     payload: data
-})
+});
 
 /**
  * Action for get all shipping
