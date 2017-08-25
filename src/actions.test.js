@@ -29,8 +29,8 @@ describe('async actions', () => {
 
     it('creates actions when fetching all shipping has been done', () => {
 
-        nock('http://boxinator.app/')
-            .get('/api/shipping')
+        nock('http://boxinator.app/api/')
+            .get('/shipping')
             .reply(200, {payload: []});
 
         const expectedActions = [
