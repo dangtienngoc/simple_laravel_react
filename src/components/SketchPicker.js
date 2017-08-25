@@ -16,7 +16,6 @@ class SketchPickerComponent extends React.Component {
     };
 
     handleChange = (color) => {
-        // this.setState({ color: color.rgb });
         this.props.onChanged({
             target: {
                 name: 'color',
@@ -28,8 +27,6 @@ class SketchPickerComponent extends React.Component {
     render() {
 
         const {color} = this.props;
-
-        console.log(color);
 
         const styles = reactCSS({
             'default': {

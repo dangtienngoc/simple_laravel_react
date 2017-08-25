@@ -14,6 +14,11 @@ class ListShipping extends Component {
         return `rgba(${ color.r }, ${ color.g }, ${ color.b }, ${ color.a })`;
     }
 
+    caculatorCost(country_id, weight) {
+        const country = contries.find(c => c.id.toString() === country_id.toString());
+        return country.value * weight;
+    }
+
     render() {
 
         const {shipping_list} = this.props;
@@ -32,12 +37,13 @@ class ListShipping extends Component {
                     </thead>
                     <tbody>
                     {
-                        shipping_list.map( shipping => <tr key={shipping.id}>
+                        shipping_list.map(shipping => <tr key={shipping.id}>
                             <th scope="row">{shipping.name}</th>
-                            <td>{shipping.weight}</td>
-                            <td className="table-primary" style={{backgroundColor: this.convertRgba(JSON.parse(shipping.color))}}></td>
-                            <td>{shipping.country}</td>
-                        </tr> )
+                            <td>{`${shipping.weight} kg`}</td>
+                            <td className="table-primary"
+                                style={{backgroundColor: this.convertRgba(JSON.parse(shipping.color))}}></td>
+                            <td>{`${this.caculatorCost(shipping.country, shipping.weight)} SEK`}</td>
+                        </tr>)
                     }
 
                     </tbody>
