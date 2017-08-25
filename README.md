@@ -25,7 +25,7 @@ Now you can access the site via [http://192.168.10.10](http://192.168.10.10) or 
 The following commands must be executed on the virtual machine :
 ```
 $ vagrant ssh
-$ cd /home/vagrant/laravel-blog
+$ cd /home/vagrant/simple_laravel_react
 ```
 
 You need to run the migrations :
