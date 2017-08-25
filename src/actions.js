@@ -23,21 +23,19 @@ export const receivePostShipping = data => ({
  * Action for get all shipping
  */
 export const getAllShippings = () => dispatch => {
-    api.getShippings().then(response => {
-        dispatch(receiveShippongs(response.data));
-    });
-}
+    return api.getShippings().then(response => {
+            return dispatch(receiveShippongs(response.data))
+        }
+    );
+};
 
 /**
  * Action for submit data
  */
 
 export const submitData = (shipping) => dispatch => {
-
     dispatch(shippingPending());
-
-    api.addShipping(shipping).then(response => {
-        console.log(response);
-        dispatch(receivePostShipping(response.data));
+    return api.addShipping(shipping).then(response => {
+        return dispatch(receivePostShipping(response.data));
     });
 }
