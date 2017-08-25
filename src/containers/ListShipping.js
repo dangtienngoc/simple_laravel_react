@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { getAllShippings } from '../actions';
 import { connect } from 'react-redux';
 
+import { Link } from 'react-router-dom';
+import contries from '../contries.json';
+
 class ListShipping extends Component {
     componentDidMount() {
         this.props.getAllShippings();
+    }
+
+    convertRgba(color) {
+        return `rgba(${ color.r }, ${ color.g }, ${ color.b }, ${ color.a })`;
     }
 
     render() {
@@ -13,6 +20,7 @@ class ListShipping extends Component {
 
         return (
             <div className="container">
+                <Link to="#/addbox">Add box</Link>
                 <table className="table">
                     <thead>
                     <tr>
@@ -27,8 +35,8 @@ class ListShipping extends Component {
                         shipping_list.map( shipping => <tr key={shipping.id}>
                             <th scope="row">{shipping.name}</th>
                             <td>{shipping.weight}</td>
-                            <td className="table-primary">{shipping.color}</td>
-                            <td>{shipping.cost}</td>
+                            <td className="table-primary" style={{backgroundColor: this.convertRgba(JSON.parse(shipping.color))}}></td>
+                            <td>{shipping.country}</td>
                         </tr> )
                     }
 

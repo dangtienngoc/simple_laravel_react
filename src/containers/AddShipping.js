@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import ColorPicker from '../components/SketchPicker';
 
+import { Link } from 'react-router-dom';
+
 import contries from '../contries.json';
 
 import { submitData } from "../actions"
@@ -33,8 +35,6 @@ class AddShipping extends Component {
         const name  = e.target.name;
         const value = e.target.value;
 
-        console.log(name, value);
-
         this.setState({
             [name]: value,
         });
@@ -52,7 +52,9 @@ class AddShipping extends Component {
 
     render() {
 
-        const {color, weight, name, country} = this.state;
+        const {color, weight, name} = this.state;
+
+        const {errors} = this.props;
 
         return (
             <div className="container">
@@ -62,18 +64,23 @@ class AddShipping extends Component {
                         <label htmlFor="name">Name</label>
                         <input onChange={this._onChange} type="text" className="form-control" name="name" id="name"
                                placeholder="Enter name" value={name}/>
-                        <small className="form-text text-muted">Bug</small>
+                        {errors.name && errors.name.length > 0 &&
+                        <small className="form-text text-danger">{errors.name.join(',')}</small>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="weight">Weight</label>
                         <input onChange={this._onChange} type="text" className="form-control" name="weight" id="weight"
                                placeholder="Weight" value={weight}/>
+                        {errors.weight && errors.weight.length > 0 &&
+                        <small className="form-text text-danger">{errors.weight.join(',')}</small>}
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="weight">Box Color</label>
                         <ColorPicker value={color}/>
+                        {errors.color && errors.color.length > 0 &&
+                        <small className="form-text text-danger">{errors.color.join(',')}</small>}
                     </div>
 
                     <div className="form-group">
@@ -83,17 +90,24 @@ class AddShipping extends Component {
                             {contries.map(item => <option value={item.id}
                                                           key={item.id}>{`${item.name} (${item.value})`}</option>)}
                         </select>
+                        {errors.country && errors.country.length > 0 &&
+                        <small className="form-text text-danger">{errors.country.join(',')}</small>}
                     </div>
 
                     <button type="submit" className="btn btn-primary">Submit</button>
+                    <Link to="#/listboxes">Listboxs</Link>
                 </form>
             </div>
         );
     }
 }
 
+const mapStateToProps = ({shipping: {errors}}) => ({
+    errors
+});
+
 const mapDisatchToProps = (dispatch) => ({
     submitData: shipping => dispatch(submitData(shipping))
 });
 
-export default connect(null, mapDisatchToProps)(AddShipping);
+export default connect(mapStateToProps, mapDisatchToProps)(AddShipping);
