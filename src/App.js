@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import {connect} from 'react-redux';
+import {getAllShippings} from './actions';
+
 class App extends Component {
+
+  componentDidMount() {
+    this.props.getAllShippings();
+  }
+
   render() {
     return (
       <div className="App">
@@ -18,4 +26,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  getAllShippings: () => dispatch(getAllShippings())
+});
+
+export default connect(null, mapDispatchToProps)(App);
