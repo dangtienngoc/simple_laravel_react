@@ -5,6 +5,18 @@ export const RECEIVED_SHIPPING      = 'RECEIVED_SHIPPING';
 export const SHIPPING_PENDING       = 'SHIPPING_PENDING';
 export const RECEIVED_POST_SHIPPING = 'RECEIVED_POST_SHIPPING';
 
+export const ADD_ERROR   = "ADD_ERROR";
+export const CLEAR_ERROR = "CLEAR_ERROR";
+
+export const addError = errors => ({
+    type: ADD_ERROR,
+    payload: errors
+});
+
+export const clearError = () => ({
+    type: CLEAR_ERROR
+});
+
 export const receiveShippongs = shippings => ({
     type: RECEIVED_SHIPPING,
     payload: shippings

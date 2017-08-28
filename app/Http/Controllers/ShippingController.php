@@ -33,7 +33,7 @@ class ShippingController extends Controller
             'name' => 'required|min:2|max:255',
             'color' => 'required',
             'country' => 'required',
-            'weight' => 'required',
+            'weight' => 'required|numeric|min:0',
         ]);
 
         if ($validator->fails()) {

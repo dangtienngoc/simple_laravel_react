@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 
 import contries from '../contries.json';
 
-import { submitData } from "../actions"
+import { addError, clearError, submitData } from "../actions"
 
 import { connect } from 'react-redux';
+
+import isEmpty from 'lodash/isEmpty';
 
 class AddShipping extends Component {
 
@@ -32,12 +34,26 @@ class AddShipping extends Component {
     }
 
     _onChange(e) {
+
+        let errors = {};
+
         const name  = e.target.name;
-        const value = e.target.value;
+        let value = e.target.value;
+
+        if (name === "weight" && value < 0) {
+            errors.weight = ['The weight must be at least 0.'];
+            value = 0;
+        }
 
         this.setState({
             [name]: value,
         });
+
+        if (!isEmpty(errors)) {
+            this.props.addError(errors);
+        } else {
+            this.props.clearError();
+        }
 
     }
 
@@ -61,7 +77,7 @@ class AddShipping extends Component {
 
                 <br/>
 
-                { id > 0 && <p className="alert alert-success">{`add ${_name} successfully.`}</p>}
+                {id > 0 && <p className="alert alert-success">{`add ${_name} successfully.`}</p>}
 
                 <form onSubmit={this._onSubmit}>
 
@@ -114,6 +130,8 @@ const mapStateToProps = ({shipping: {errors, id, name}}) => ({
 });
 
 const mapDisatchToProps = (dispatch) => ({
+    clearError: () => dispatch(clearError()),
+    addError: (errors) => dispatch(addError(errors)),
     submitData: shipping => dispatch(submitData(shipping))
 });
 

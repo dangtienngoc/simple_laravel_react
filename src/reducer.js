@@ -1,4 +1,4 @@
-import { RECEIVED_SHIPPING, SHIPPING_PENDING, RECEIVED_POST_SHIPPING } from './actions';
+import { RECEIVED_SHIPPING, SHIPPING_PENDING, RECEIVED_POST_SHIPPING, ADD_ERROR, CLEAR_ERROR } from './actions';
 
 const initState = {
     pending: false,
@@ -33,6 +33,27 @@ const reducer = (state = initState, action) => {
                 },
                 pending: false
             };
+        case ADD_ERROR:
+            const errors = action.payload;
+            return {
+                ...state,
+                shipping: {
+                    errors: {
+                        ...errors
+                    },
+                    id: 0
+                }
+            };
+
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                shipping: {
+                    errors: {},
+                    id: 0
+                }
+            };
+
         default:
             return state;
     }
