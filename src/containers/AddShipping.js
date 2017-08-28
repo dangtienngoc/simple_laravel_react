@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import ColorPicker from '../components/SketchPicker';
+// import ColorPicker from '../components/SketchPicker';
+import ColorPicker from '../components/BlockPicker';
 
 import { Link } from 'react-router-dom';
 
