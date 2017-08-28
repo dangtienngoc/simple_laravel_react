@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import contries from '../contries.json';
 
+import ceil from 'lodash/ceil';
+
 class ListShipping extends Component {
     componentDidMount() {
         this.props.getAllShippings();
@@ -22,6 +24,17 @@ class ListShipping extends Component {
     render() {
 
         const {shipping_list} = this.props;
+
+        let totalWeight = 0;
+        let totalCost   = 0;
+
+        shipping_list.forEach( value => {
+            const {weight, country} = value;
+            totalWeight += weight;
+            totalCost += this.caculatorCost(country, weight);
+        });
+
+        console.log(totalWeight,totalCost );
 
         return (
             <div className="container">
@@ -45,7 +58,12 @@ class ListShipping extends Component {
                             <td>{`${this.caculatorCost(shipping.country, shipping.weight)} SEK`}</td>
                         </tr>)
                     }
-
+                    <tr>
+                        <th></th>
+                        <th>Total: {`${totalWeight} kg`}</th>
+                        <th></th>
+                        <th>Total: {`${ceil(totalCost, 1)} SEK`}</th>
+                    </tr>
                     </tbody>
                 </table>
             </div>
