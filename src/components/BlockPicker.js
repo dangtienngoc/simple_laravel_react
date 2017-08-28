@@ -2,8 +2,8 @@ import React from 'react'
 import reactCSS from 'reactcss'
 import { CirclePicker } from 'react-color'
 
-const colors      = ['#D9E3F0', '#F47373', '#697689', '#37D67A', '#2CCCE4', '#555555', '#dce775', '#ff8a65', '#ba68c8'];
-const color_names = ['RED', 'BLUE', 'GREEN', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE', 'BLUE'];
+const colors      = ['#0000FF', '#FF0000', '#00FFFF'];
+const color_names = ['Blue', 'Red', 'Cyan'];
 
 class BlockPickerComponent extends React.Component {
     state = {
@@ -19,6 +19,13 @@ class BlockPickerComponent extends React.Component {
     };
 
     handleChange = (color) => {
+
+        const hex = color.hex;
+
+        if (hex.toUpperCase() === "#0000FF") {
+            return;
+        }
+
         this.props.onChanged({
             target: {
                 name: 'color',
@@ -68,7 +75,7 @@ class BlockPickerComponent extends React.Component {
                 </div>
                 {this.state.displayColorPicker ? <div className="picker" style={styles.popover}>
                     <div style={styles.cover} onClick={this.handleClose}/>
-                    <CirclePicker color={this.props.color} colosr={colors} onChange={this.handleChange}/>
+                    <CirclePicker color={this.props.color} colors={colors} onChange={this.handleChange}/>
                 </div> : null}
 
             </div>
